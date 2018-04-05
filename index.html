@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Alarm Clock</title>
-    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png" />
   <!-- reference stuff-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!--<script src="combodate.js" type="text/javascript"></script>-->
@@ -25,7 +24,7 @@ html{
     #content{
         align-content: center;
         align-content: center;
-     max-width:   1000px;
+     max-width:   800px;
     width: 100%;
         height: 100%;
         margin: 0 auto;
@@ -33,16 +32,16 @@ html{
 #header{
     position:relative;
  background-color:#01b2c6;
-    font: Bold 100px Lucida Console, Tahoma, sans-serif; 
+    font: Bold 75px Lucida Console, Tahoma, sans-serif;
     width: 100%;
-    height: 220px;
-     margin-top: -134px;
-   
+    height: 150px;
+     margin-top: -80px;
+
 }
     h1{
 
     }
-    
+
     #background {
     z-index:-1;
     position: absolute;
@@ -58,13 +57,13 @@ html{
     -o-background-size: cover;      /* remove the white space*/
     background-size: cover;         /* around images */
 }
-    
+
 .textbox {
-    
+
     color: white;
     background: transparent;
     height: 200px;
-    width: 50%;
+    width: 70%;
     border: solid 2px #01b2c6;
     outline: 0;
     text-align: center;
@@ -74,11 +73,11 @@ html{
     -moz-box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px;
     -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px;
     -webkit-text-align: center;
-    -webkit-input-placeholder 
+    -webkit-input-placeholder
   text-align: center;
     display: block;
     margin:0 auto;
-    margin-top: 70px;
+    margin-top: 50px;
 
 }
 
@@ -86,7 +85,7 @@ html{
     border-color: #d2024b;
     -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0 0 15px;
     text-align: center;
-}   
+}
 
 .btn{
  -moz-box-shadow: 0px 1px 17px -5px #0a0a0a;
@@ -116,13 +115,13 @@ html{
 	font-size:30px;
 	font-weight:normal;
 	font-style:normal;
-	height:120px;
+	height:100px;
 	line-height:auto;
 	width:300px;
 	text-decoration:none;
 	text-align:center;
     align-content: center;
-    margin: 80px 75px 80px 75px;
+    margin: 70px 65px 70px 65px;
 }
 
 
@@ -162,35 +161,35 @@ html{
         margin-bottom: 50px;
     }
 
-    
+
 #sleep{
     color: white;
     align-content: center;
     width: 50%;
     font-family:normal Verdana, Tahoma, sans-serif;
-	font-size:35px; 
-    
-    
+	font-size:35px;
+
+
 }
-    
-    @media only screen 
-and (min-device-width : 320px) 
+
+    @media only screen
+and (min-device-width : 320px)
 and (max-device-width : 480px) {
 
 }
-    
-    
+
+
 </style>
     </head>
-   
+
 <body>
 <div id="content">
 <header id="header">
-<div><h1>GET UP</h1> </div>  
+<div><h1>GET UP</h1> </div>
 </header>
    <div>
     <input type="time" id="time" data-time="" class="textbox" value="" ></input></div>
-   
+
 <div><button class="btn" id="preview">Set</button>
 </div>
 <button id="submit">submit</button>
@@ -210,46 +209,44 @@ $( document ).ready(function(){
     var getFunc = "setTime";
     var errorMessage = "You should connect your spark core first Carlton";
     //preview time on click
-   
+
     $( "#preview" ).click(function() {
-        
+
         var today = moment().format('hh:mm a');
     var wakeTime = document.getElementById("time").value;
     var tempTime = moment(wakeTime,'hh:mm a').format('hh:mm a');
     var showTime = moment(tempTime,'hh:mm a').diff(moment(today,'hh:mm a'));
-        
+
     var printHours = "Good Night Carlton, see you in" + " " + (Math.abs(((showTime/1000)/60)/60)).toFixed(2) + " " +"Hours";
     $('#sleep').html(printHours);
         });
-    
-    
+
+
     //set time on click
     $( "#submit" ).click(function() {
     var today = moment().format('hh:mm a');
     var wakeTime = document.getElementById("time").value;
   var tempTime = moment(wakeTime,'hh:mm a').format('hh:mm a');
     var setTime = moment(wakeTime,'hh:mm a').format('X');
-    
+
     var printHours = "Your alarm has been set for" + " " + setTime + " " +"Hours";
     var reject = "Sorry stupid - yo can't cheat the system - GEEETTTTUPPPP!";
-        
-        
+
+
 
 var requestURL = "https://api.particle.io/v1/devices/" +deviceID + "/" + setFunc + "/";
-        
+
         $.post( requestURL, {params:setTime, access_token: accessToken},function(data){
             if(data.return_value ==200) {
                 $('#sleep').html(printHours);
             } else {
                 $('#sleep').html(reject);
              }
-            
+
             }).error($('#sleep').html(errorMessage));//from post
         }); //from submit
-    
+
 })
 </script>
 </body>
 </html>
-
-
