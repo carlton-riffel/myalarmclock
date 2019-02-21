@@ -228,7 +228,7 @@ $( document ).ready(function(){
     var wakeTime = document.getElementById("time").value;
   var tempTime = moment(wakeTime,'hh:mm a').format('hh:mm a');
     var setTime = moment(wakeTime,'hh:mm a').format('X');
-
+console.log(setTime);
     var printHours = "Your alarm has been set for" + " " + setTime + " " +"Hours";
     var reject = "Sorry stupid - you can't cheat the system - GEEETTTTUPPPP!";
 
